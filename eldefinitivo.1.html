@@ -10,19 +10,23 @@
 </style>
 <body>
     <div style="display: flex; justify-content: center; align-items: center;">
+        <center>
         <table>
             <tr>
-                <td colspan="2" style="background-color: rgb(21, 157, 161)"><h2>Elementos de HTML</h2></td>
+                <td colspan="4" style="background-color: rgb(21, 157, 161);text-align: center;"><h2>tablas de Elementos de HTML</h2></td>
             </tr>
             <tr>
                 <td>
-                    <input id="captura" type="text" placeholder="Escribe tu name" onkeypress="if (event.keyCode === 13) { agregarFila(); }">
+                    <input id="captura" type="text" placeholder="Escribe tu name" style="justify-content: center;"onkeypress="if (event.keyCode === 13) { agregarFila(); }">
+                    <input id="captura1"type="text"placeholder="escribe tu apelido paterno"onkeypress="if (event.keyCode === 13) { agregarFila(); }">
+                    <input id="captura2"type="text"placeholder="escribe tu apelido materno"onkeypress="if (event.keyCode === 13) { agregarFila(); }">
                 </td>
                 <td>
                     <input type="button" value="Agregar" onclick="agregarFila()">
                 </td>
             </tr>
         </table>
+    </center>
     </div>
     <br>
     <br>
@@ -31,7 +35,9 @@
             <tr>
                 <td style="background-color: rgb(187, 118, 118); text-align: center;">Consecutivo</td>
                 <td style="background-color: rgb(164, 143, 212); text-align: center;">Nombre Alumno</td>
-                <td style="background-color: rgb(164, 143, 212); text-align: center;">Eliminar</td>
+                <td style="background-color: rgb(229, 139, 128); text-align: center;">Apellido paterno</td>
+                <td style="background-color: rgb(235, 115, 189); text-align: center;">Apellido materno</td>
+                <td style="background-color: rgb(190, 112, 38); text-align: center;">Eliminar</td>
             </tr>
         </table>
     </center>
@@ -42,7 +48,7 @@
             let nombre = document.getElementById("captura").value.trim();
 
             if (nombre === "") {
-                alert("Por favor, ingresa un nombre válido.");
+                alert("he pon tu nombre no seas pedazo de nazi.");
                 return;
             }
 
@@ -51,9 +57,12 @@
             var celda0 = nuevaFila.insertCell(0);
             var celda1 = nuevaFila.insertCell(1);
             var celda2 = nuevaFila.insertCell(2);
+            var celda3 = nuevaFila.insertCell(3);
+            var celda4 = nuevaFila.insertCell(4);
 
             celda0.textContent = contador++;
             celda1.textContent = nombre;
+            
 
             var botonEliminar = document.createElement("button");
             botonEliminar.textContent = "Eliminar";
@@ -61,7 +70,7 @@
                 this.parentNode.parentNode.remove();
             };
 
-            celda2.appendChild(botonEliminar);
+            celda4.appendChild(botonEliminar);
 
             // Reiniciamos el campo de entrada
             document.getElementById("captura").value = "";
