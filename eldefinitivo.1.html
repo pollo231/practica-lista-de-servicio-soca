@@ -13,13 +13,13 @@
         <center>
         <table>
             <tr>
-                <td colspan="2" style="background-color: rgb(21, 157, 161);text-align: center;"><h2>tablas de Elementos de HTML</h2></td>
+                <td colspan="2" style="background-color: rgb(21, 157, 161);text-align: center;"><h2>Tablas de Elementos de HTML</h2></td>
             </tr>
             <tr>
                 <td>
-                    <input id="captura" type="text" placeholder="Escribe tu name">
-                    <input id="captura1" type="text" placeholder="escribe tu apelido Paterno">
-                    <input id="captura2" type="text" placeholder="escribe tu apelido aterno" onkeypress="if (event.keyCode === 13) { agregarFila(); }">
+                    <input id="captura"  type="text"  placeholder="Escribe tu nombre">
+                    <input id="captura1" type="text" placeholder="Escribe tu apellido Paterno">
+                    <input id="captura2" type="text" placeholder="Escribe tu apellido Materno" onkeypress="if (event.keyCode === 13) { agregarFila(); }">
                 </td>
                 <td>
                     <input type="button" value="Agregar" onclick="agregarFila()">
@@ -43,22 +43,14 @@
     </center>   
     <script>
         let contador = 1;
-//Test
+
         function agregarFila() {
             let nombre = document.getElementById("captura").value.trim();
             let Paterno = document.getElementById("captura1").value.trim();
             let Materno = document.getElementById("captura2").value.trim();
             
-            if (nombre === "") {
-                alert("he pon tu nombre no seas pedazo de nazi.");
-                return;
-            }
-            if (Paterno === "") {
-                alert("he pon tu nombre no seas pedazo de nazi.");
-                return;
-            }
-            if (Materno === "") {
-                alert("he pon tu nombre no seas pedazo de nazi.");
+            if (nombre === "" || Paterno === "" || Materno === "") {
+                alert("llena todo nazi.");
                 return;
             }
 
@@ -75,29 +67,34 @@
             celda2.textContent = Paterno;
             celda3.textContent = Materno;
             
-
             var botonEliminar = document.createElement("button");
             botonEliminar.textContent = "Eliminar";
             botonEliminar.onclick = function() {
                 this.parentNode.parentNode.remove();
+                actualizarContadores();
             };
 
             celda4.appendChild(botonEliminar);
 
             // Reiniciamos el campo de entrada
             document.getElementById("captura").value = "";
-            document.getElementById("captura").focus();
             document.getElementById("captura1").value = "";
-            document.getElementById("captura1").focus();
             document.getElementById("captura2").value = "";
-            document.getElementById("captura2").focus();
-            
-            
+            document.getElementById("captura").focus();
         }
+
+        function actualizarContadores() {
+            const filas = document.querySelectorAll("#tabla tr:not(:first-child)");
+            contador = 1;
+            filas.forEach(fila => {
+                fila.cells[0].textContent = contador++;
+            });
+        }
+
         window.onbeforeunload = function(event) {
-            // Mostrar mensaje de advertencia al recargar
-            return "¿Estás seguro de que deseas salir? Todos los datos no guardados se perderán.";
+            return "¿estas muy seguro XD.";
         }
+        
     </script>
 </body>
 </html>
