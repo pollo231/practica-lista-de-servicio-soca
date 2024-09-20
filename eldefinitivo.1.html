@@ -1,46 +1,49 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title> HTML </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML con Bootstrap</title>
+    <!-- Enlaces de Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style type="text/css">
+        table, tr, td {
+            border: 1px solid rgb(202, 191, 29);
+        }
+    </style>
 </head>
-<style type="text/css">
-    table, tr, td {
-        border: 1px solid rgb(202, 191, 29);
-    }
-</style>
 <body>
-   <div style="display: flex; justify-content: center; align-items: center;">
-        <center>
-        <table>
-            <tr>
-                <td colspan="2" style="background-color: rgb(21, 157, 161);text-align: center;"><h2>Tablas de Elementos de HTML</h2></td>
-            </tr>
-            <tr>
-                <td>
-                    <input id="captura"  type="text"  placeholder="Escribe tu nombre">
-                    <input id="captura1" type="text" placeholder="Escribe tu apellido Paterno">
-                    <input id="captura2" type="text" placeholder="Escribe tu apellido Materno" onkeypress="if (event.keyCode === 13) { agregarFila(); }">
-                </td>
-                <td>
-                    <input type="button" value="Agregar" onclick="agregarFila()">
-                </td>
-            </tr>
-        </table>
-        </center>
+    <div class="container text-center mt-5">
+        <h2 class="bg-info text-white p-2">Tablas de Elementos de HTML</h2>
+        <div class="row mt-3">
+            <div class="col-md-8">
+                <input id="captura" type="text" class="form-control mb-2" placeholder="Escribe tu nombre">
+                <input id="captura1" type="text" class="form-control mb-2" placeholder="Escribe tu apellido Paterno">
+                <input id="captura2" type="text" class="form-control mb-2" placeholder="Escribe tu apellido Materno" onkeypress="if (event.keyCode === 13) { agregarFila(); }">
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-primary" onclick="agregarFila()">Agregar</button>
+            </div>
+        </div>
     </div>
-    <br>
-    <br>
-    <center>
-        <table id="tabla">
-            <tr>
-                <td style="background-color: rgb(187, 118, 118); text-align: center;">Consecutivo</td>
-                <td style="background-color: rgb(164, 143, 212); text-align: center;">Nombre Alumno</td>
-                <td style="background-color: rgb(229, 139, 128); text-align: center;">Paterno</td>
-                <td style="background-color: rgb(235, 115, 189); text-align: center;">Materno</td>
-                <td style="background-color: rgb(190, 112, 38); text-align: center;">Eliminar</td>
-            </tr>
+
+    <div class="container mt-5">
+        <table id="tabla" class="table">
+            <thead>
+                <tr>
+                    <th style="background-color: rgb(187, 118, 118); text-align: center;">Consecutivo</th>
+                    <th style="background-color: rgb(164, 143, 212); text-align: center;">Nombre Alumno</th>
+                    <th style="background-color: rgb(229, 139, 128); text-align: center;">Paterno</th>
+                    <th style="background-color: rgb(235, 115, 189); text-align: center;">Materno</th>
+                    <th style="background-color: rgb(190, 112, 38); text-align: center;">Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se agregarán filas -->
+            </tbody>
         </table>
-    </center>   
+    </div>
+
     <script>
         let contador = 1;
 
@@ -50,31 +53,19 @@
             let Materno = document.getElementById("captura2").value.trim();
             
             if (nombre === "" || Paterno === "" || Materno === "") {
-                alert("llena todo nazi.");
+                alert("Llena todo, por favor.");
                 return;
             }
 
-            var tabla = document.getElementById("tabla");
+            var tabla = document.getElementById("tabla").getElementsByTagName('tbody')[0];
             var nuevaFila = tabla.insertRow(-1);
-            var celda0 = nuevaFila.insertCell(0);
-            var celda1 = nuevaFila.insertCell(1);
-            var celda2 = nuevaFila.insertCell(2);
-            var celda3 = nuevaFila.insertCell(3);
-            var celda4 = nuevaFila.insertCell(4);
-
-            celda0.textContent = contador++;
-            celda1.textContent = nombre;
-            celda2.textContent = Paterno;
-            celda3.textContent = Materno;
-            
-            var botonEliminar = document.createElement("button");
-            botonEliminar.textContent = "Eliminar";
-            botonEliminar.onclick = function() {
-                this.parentNode.parentNode.remove();
-                actualizarContadores();
-            };
-
-            celda4.appendChild(botonEliminar);
+            nuevaFila.innerHTML = `
+                <td>${contador++}</td>
+                <td>${nombre}</td>
+                <td>${Paterno}</td>
+                <td>${Materno}</td>
+                <td><button class="btn btn-danger" onclick="this.parentNode.parentNode.remove(); actualizarContadores();">Eliminar</button></td>
+            `;
 
             // Reiniciamos el campo de entrada
             document.getElementById("captura").value = "";
@@ -84,7 +75,7 @@
         }
 
         function actualizarContadores() {
-            const filas = document.querySelectorAll("#tabla tr:not(:first-child)");
+            const filas = document.querySelectorAll("#tabla tbody tr");
             contador = 1;
             filas.forEach(fila => {
                 fila.cells[0].textContent = contador++;
@@ -92,9 +83,11 @@
         }
 
         window.onbeforeunload = function(event) {
-            return "¿estas muy seguro XD.";
+            return "¿Estás seguro de que quieres salir?";
         }
-        
     </script>
+    <!-- Enlaces de Bootstrap JS y jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
